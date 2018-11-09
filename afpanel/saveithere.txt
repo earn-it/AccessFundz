@@ -1,0 +1,53 @@
+ <div class="alert alert-info" style="margin-bottom:0px;margin-top:10px; color: #000;font-weight: bold;">
+       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+       <span class="icon icon-exclamation-sign"></span> You have been Matched to pay <?php echo"$mpinfo[title] $mpinfo[fullname] N".number_format($matched["amount"]).". You have till ".date("d-m-Y, h:i a",$matched["endtime"])." to complete the transaction. Go to Provide Help section to view."; ?> 
+	   <?php } }?>
+	   
+	   <?php 
+	   $matchsearch = mysqli_query($conn, "select * from `matched` where payeeusername='$username' and status='pending'");
+	   while($matched = mysqli_fetch_assoc($matchsearch)){
+	   if($matched){
+		   $m = mysqli_query($conn, "select * from `members` where username='$matched[payeeusername]'");
+		   $matchinfo = mysqli_fetch_assoc($m);
+		   
+		   $mpayer = mysqli_query($conn, "select * from `members` where username='$matched[payerusername]'");
+		   $mpinfo = mysqli_fetch_assoc($mpayer);
+	   ?>
+	   <div class="col-md-12">
+      <div class="alert alert-info" style="margin-bottom:10px;margin-top:10px; color: #000;font-weight: bold;">
+       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+       <span class="icon icon-exclamation-sign"></span>You have been Matched to recieve payment from <?php echo"$mpinfo[title] $mpinfo[fullname] in total of N".number_format($matched["amount"]).". You have till ".date("d-m-Y, h:i a",$matched["endtime"])." to confirm the transaction."; ?> 
+	
+	   </div>
+	   <?php } 
+
+
+	   }?>
+	   <?php 
+	   $checkpledge = mysqli_query($conn, "select * from `pledges` where username='$row[username]' and status='unconfirmed' or status='matched' or status='confirmed'");
+	   $checked = mysqli_fetch_assoc($checkpledge);
+	   if(!$checked){
+		   
+	   ?>
+	   <div class="col-md-12">
+      <div class="alert alert-info" style="margin-bottom:0px;margin-top:10px; color: #000;font-weight: bold;">
+       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+       <span class="icon icon-exclamation-sign"></span> <strong><?php echo"You have not yet provided help to anyone. Please provide help now to avoid debiting of your credibility score and eventual total suspension of account in less than 48 hours."; ?> 
+	   <?php } ?>
+	   </div>
+	   <br><br>
+	   <div class="col-md-10">
+       <div class="wdgt">
+        <div class="wdgt-header">How ZENITHPLUS Works</div>
+        <div class="wdgt-body">
+         <p>
+		When you Join, you will need to donate the sum of either N10,000, N20,000, N50,000, N100,000 or N200,000 to a fellow member assigned by the system or your direct link, and the member will then confirm your donation and then the system will automatically assign 2 other registered people under you from spillovers who will also pay you the joining amount each, into your bank account, making 100% (i.e. 100% of N10,000 is N20,000, 100% of N20,000 is N40,000, 100% of N50,000 is N100,000, 100% of N100,000 is N200,000 and 100% of N200,000 is N400,000).
+		</p><br>
+		<p>ZP will assign referrals to pay you. After you have received payment from 2 people under you, the system will automatically EXIT you and allows unlimited registration. All donations are made directly to member bank account. Share ZP to people and make the world a better place.</p>
+        </div>
+       </div>
+      </div>
+      </div>
+     </div>
+    </div>
+	  

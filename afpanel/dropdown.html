@@ -1,0 +1,119 @@
+<style>
+.moda { background:rgba(0,0,0,0.5); display:none; width:100%; height:100%; z-index:1111; position:fixed; top:0; left:0;
+ cursor:default; }
+
+#modapage { background:#fff; padding:20px; display:none; border-radius:5px;
+			 box-shadow:0px 0px 10px 3px rgba(0,0,0,0.5); -moz-box-shadow:0px 0px 10px 3px rgba(0,0,0,0.5);
+			 width:380px;position:absolute; z-index:1111; margin-top: 30px;
+}
+
+.c {
+	display:block;
+	text-align:right;
+	line-height:0.8;
+	margin:0;
+	float:right;
+}
+
+.ani { -webkit-animation:bring 1s; -o-animation:bring 1s; animation:bring 1s;
+				position:absolute; top:20%; left:35%; }
+				
+@media (max-width: 767px) {
+.ani { -webkit-animation:bring 1s; -o-animation:bring 1s; animation:bring 1s;
+				position:absolute; top:20%; left:5%; }
+				
+#modapage { background:#fff; padding:20px; display:none; border-radius:5px;
+			 box-shadow:0px 0px 10px 3px rgba(0,0,0,0.5); -moz-box-shadow:0px 0px 10px 3px rgba(0,0,0,0.5);
+			 width:90%;position:absolute; z-index:1111; margin-top: 30px;
+}
+}
+				
+.outta { -webkit-animation:outta 5s; -o-animation:outta 5s; position:absolute; top:-1000px; }
+.cl { font-size:30px; color:#f20; }
+.cl:hover { cursor:pointer; }
+
+@-webkit-keyframes bring { from	{ top:-100%; }
+}
+@-o-keyframes bring { from { top:-100%; }
+}
+@keyframes bring { from { top:-100%; }
+}
+
+@-webkit-keyframes outta { from { top:10%; left:25%; opacity:1; } to { top:-100%; left:25%; opacity:0.9; }	
+}
+@-o-keyframes outta { from { top:10%; left:25%; opacity:1; } to { top:-100%; left:25%; opacity:0.9; }
+}
+@keyframes outta { from { top:10%; left:25%; opacity:1; } to { top:-100%; left:25%; opacity:0.9; }
+}
+</style>
+<script>
+var xmlhttp = new XMLHttpRequest();
+</script>
+<div id='moda' class='moda'></div>
+<?php session_start(); ?>
+<div id="modapage">
+	<div class="c"><a href='javascript:closemoda()' class='cl'>&#215;</a></div>
+ <div class="login-box-body">
+							
+				<center><p class="login-box-msg"><span class='label label-primary'>Make Donation (N10,000 - N300,000)</span></p></center>
+				
+				 <form action="process.php" method="post">
+					
+					
+					<div class="form-group">
+                      <label>Enter Amount in Round Figures:</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-money"></i>
+                        </div>
+                        <input class="form-control" id="amount" onkeypress="setTimeout(checknow, 1,'checkinput','amount','confirmD');" name="amount" list="catego" type="number" placeholder="Amount (NGN)" required />
+						
+					  </div><!-- /.input group -->
+                  	</div>
+					<input type="hidden" name="user" value="<?php echo $_SESSION["username"]; ?>" />
+				 <div id="confirmD">
+				 <center>
+				  <div class="row">
+				 	  <button type="submit" name="begin" class="btn btn-primary" disabled><i class="fa fa-check"></i> Confirm Donation</button>
+				  </div><!-- /. row -->
+				  </center>
+				 </div>
+				</form>
+		</div>
+		
+		</div><!-- /.Modapage -->
+			
+<script>
+window.onload = function(){ b(); }
+function b()
+{
+	document.getElementById('modapage').className = 'ani';
+	document.getElementById('modapage').style.display = 'block'; document.getElementById('moda').style.display = 'block';
+}
+function closemoda()
+{	
+	document.getElementById('modapage').className = 'outta';
+	setTimeout('removecon()',2000);
+	setTimeout("location = './?deposits'");
+}
+function removecon()
+{
+	document.getElementById('modapage').style.display = 'none'; document.getElementById('moda').style.display = 'none';
+}
+function checknow(whr,val,output)
+{
+
+	var serverPage = "process.php?" + whr + "=" + document.getElementById(val).value;
+	xmlhttp.open("GET", serverPage);
+	xmlhttp.onreadystatechange = function()
+	{
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+		{
+			document.getElementById(output).innerHTML = xmlhttp.responseText;
+			if(who == "msgp") setTimeout(check,9600,whr,who);
+		}
+			
+	}
+	xmlhttp.send(null);
+}
+</script>

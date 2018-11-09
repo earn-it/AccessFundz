@@ -1,0 +1,34 @@
+.newbox{
+	width: 700px;
+	height: 90px;
+	
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff; 
+	
+}
+@media (max-width: 767px) {
+	.newbox{
+	width: 100%;
+	height: 180px;
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff; 
+	}
+}
+.new_box{
+	width: 300px;
+	height: 90px;
+	background-color: rgba(0,0,0,0.1);
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff;
+}
+.new_box2{
+	width: 300px;
+	height: 140px;
+	background-color: rgba(0,0,0,0.1);
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff;
+}
